@@ -1,5 +1,5 @@
 from .constants import RED, WHITE, SQUARE_SIZE, GREY, CROWN
-import pygame
+import pygame as pg
 
 class Piece:
     PADDING = 15
@@ -23,8 +23,8 @@ class Piece:
     
     def draw(self, win):
         radius = SQUARE_SIZE//2 - self.PADDING
-        pygame.draw.circle(win, GREY, (self.x, self.y), radius + self.OUTLINE)
-        pygame.draw.circle(win, self.color, (self.x, self.y), radius)
+        pg.draw.circle(win, GREY, (self.x, self.y), radius + self.OUTLINE)
+        pg.draw.circle(win, self.color, (self.x, self.y), radius)
         if self.king:
             win.blit(CROWN, (self.x - CROWN.get_width()//2, self.y - CROWN.get_height()//2))
 

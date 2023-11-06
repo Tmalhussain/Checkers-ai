@@ -1,4 +1,4 @@
-import pygame
+import pygame as pg
 from .constants import BLACK, ROWS, RED, SQUARE_SIZE, COLS, WHITE
 from .piece import Piece
 
@@ -13,7 +13,7 @@ class Board:
         win.fill(BLACK)
         for row in range(ROWS):
             for col in range(row % 2, COLS, 2):
-                pygame.draw.rect(win, RED, (row*SQUARE_SIZE, col *SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+                pg.draw.rect(win, RED, (row*SQUARE_SIZE, col *SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
 
     def move(self, piece, row, col):
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]

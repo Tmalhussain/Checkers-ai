@@ -1,11 +1,12 @@
-import pygame
+"by mishari alhussain"
+import pygame as pg
 from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, RED
 from checkers.game import Game
 
 FPS = 60
 
-WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption('Checkers')
+WIN = pg.display.set_mode((WIDTH, HEIGHT))
+pg.display.set_caption('Checkers')
 
 def get_row_col_from_mouse(pos):
     x, y = pos
@@ -15,7 +16,7 @@ def get_row_col_from_mouse(pos):
 
 def main():
     run = True
-    clock = pygame.time.Clock()
+    clock = pg.time.Clock()
     game = Game(WIN)
 
     while run:
@@ -25,17 +26,17 @@ def main():
             print(game.winner())
             run = False
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
                 run = False
             
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                pos = pygame.mouse.get_pos()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                pos = pg.mouse.get_pos()
                 row, col = get_row_col_from_mouse(pos)
                 game.select(row, col)
 
         game.update()
     
-    pygame.quit()
+    pg.quit()
 
 main()
