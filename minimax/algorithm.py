@@ -19,7 +19,7 @@ def iterative_deepening(position, max_depth, max_player, game, alpha=float('-inf
             break
     return best_move
 
-def minimax(position, depth, max_player, game, alpha=float('-inf'), beta=float('inf')):
+def minmax(position, depth, max_player, game, alpha=float('-inf'), beta=float('inf')):
     if depth == 0 or position.winner() != None:
         return position.eval(), position
 
@@ -27,7 +27,7 @@ def minimax(position, depth, max_player, game, alpha=float('-inf'), beta=float('
         maxEval = float('-inf')
         best_move = None
         for move in get_all_moves(position, WHITE, game):
-            evalu = minimax(move, depth - 1, False, game, alpha, beta)[0]
+            evalu = minmax(move, depth - 1, False, game, alpha, beta)[0]
             maxEval = max(maxEval, evalu)
             if maxEval == evalu:
                 best_move = move
@@ -39,7 +39,7 @@ def minimax(position, depth, max_player, game, alpha=float('-inf'), beta=float('
         minEval = float('inf')
         best_move = None
         for move in get_all_moves(position, RED, game):
-            evalu = minimax(move, depth - 1, True, game, alpha, beta)[0]
+            evalu = minmax(move, depth - 1, True, game, alpha, beta)[0]
             minEval = min(minEval, evalu)
             if minEval == evalu:
                 best_move = move
