@@ -14,7 +14,31 @@ class Board:
         for row in range(ROWS):
             for col in range(row % 2, COLS, 2):
                 pg.draw.rect(win, RED, (row*SQUARE_SIZE, col *SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
-
+    def eval(self):
+        white_score = 0
+        red_score = 0
+        for row in range(ROWS):
+            for col in range(COLS):
+                piece = self.board[row][col]
+                if piece != 0:
+                    score = 20 if piece.king else 5  
+                    score += (ROWS - row) / ROWS if piece.color == WHITE else row / ROWS  
+                    if 1 < col < COLS - 2:
+                        score += 1
+                    if (piece.color == WHITE and row == ROWS - 1) or (piece.color == RED and row == 0): 
+                        score += 1
+                    if piece.color == WHITE:
+                        white_score += score
+                    else:
+                        red_score += score
+        return white_score - red_score
+    def get_all_pieces(self, color):
+        pieces = []
+        for row in self.board:
+            for piece in row:
+                if piece != 0 and piece.color == color:
+                    pieces.append(piece)
+        return pieces
     def move(self, piece, row, col):
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
         piece.move(row, col)

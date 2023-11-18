@@ -1,7 +1,8 @@
 "by mishari alhussain"
 import pygame as pg
 from checkers.constants import *
-from checkers.game import Game
+from checkers.game import *
+from minimax.algorithm import minmax
 
 FPS = 60
 
@@ -21,7 +22,9 @@ def main():
 
     while run:
         clock.tick(FPS)
-
+        if game.turn == WHITE:
+            value, new_board = minmax(game.get_board(), 4, WHITE, game)
+            game.ai_move(new_board)
         if game.winner():
             print(game.winner())
             run = False
