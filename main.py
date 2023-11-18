@@ -1,6 +1,6 @@
 "by mishari alhussain"
 import pygame as pg
-from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, RED
+from checkers.constants import *
 from checkers.game import Game
 
 FPS = 60
@@ -22,7 +22,7 @@ def main():
     while run:
         clock.tick(FPS)
 
-        if game.winner() != None:
+        if game.winner():
             print(game.winner())
             run = False
 
