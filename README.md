@@ -28,7 +28,7 @@ Before you can run this project, you'll need to have the following installed:
    ```
 3. Install the required dependencies:
    ```
-   pip install -r requirements.txt
+   pip install pygame
    ```
 
 ### Running the Game
