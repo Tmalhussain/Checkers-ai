@@ -1,45 +1,32 @@
+# Checkers-ai
 
-# Checkers AI
+A checkers game with a minimax AI opponent. Pygame UI, 1-player and 2-player modes.
 
-## Introduction
-Welcome to the Checkers AI repository! This project is an implementation of a Checkers game powered by artificial intelligence. This project aims to create a challenging and interactive Checkers game where players can compete against a sophisticated AI opponent.
+Wrote this in 2023 while learning game-tree search. The AI uses minimax with alpha-beta pruning over a piece-difference + king-bonus evaluation function. Depth is fixed in code — bump it up for a stronger (slower) opponent.
 
-## Features
-- **AI Opponent**: Play against an AI with adjustable difficulty levels.
-- **Interactive GUI**: A user-friendly graphical interface for easy gameplay.
-- **Move Validation**: Ensures all moves adhere to the standard rules of Checkers.
-- **Multiple Game Modes**: Choose between playing against the AI or a local multiplayer mode.
+## Run it
 
-## Getting Started
-
-### Prerequisites
-Before you can run this project, you'll need to have the following installed:
-- Python 3.x
-- Pygame
-
-### Installation
-1. Clone the repository:
-   ```
-   git clone https://github.com/Tmalhussain/Checkers-ai.git
-   ```
-2. Navigate to the cloned repository:
-   ```
-   cd Checkers-ai
-   ```
-3. Install the required dependencies:
-   ```
-   pip install pygame
-   ```
-
-### Running the Game
-To start the game, run the following command in the terminal:
-```
+```bash
+pip install -r requirements.txt
 python main.py
 ```
 
-## AI Algorithm
-Minimax algorithm with alpha-beta pruning
+Menu — `1` for AI mode, `2` for two-player.
 
-## License
-This project is licensed under the [MIT License](LICENSE) - see the LICENSE file for details.
+## How the AI plays
 
+[minimax/algorithm.py](minimax/algorithm.py) — depth-limited minimax with alpha-beta. The Board's evaluation method is the simplest sensible thing: `(my_pieces - their_pieces) + 0.5 * (my_kings - their_kings)`. No mobility, no positional tables, no opening prep. Plays a reasonable defensive game and can spot 3-ply forced wins but won't see a deep combination.
+
+The included `iterative_deepening` wrapper isn't currently the entry point — the menu loop calls `minmax` directly with a hard depth. That was intentional at the time (predictable per-move latency), but iterative deepening with a time cap would be a cleaner default.
+
+## Layout
+
+```
+main.py                game loop, menu, mouse → board-row/col mapping
+checkers/board.py      board state, legal moves, draw
+checkers/piece.py      piece class
+checkers/game.py       turn handling, selection state, valid-move highlights
+checkers/constants.py  colors, board size, image-loaded crown
+minimax/algorithm.py   minimax + alpha-beta + iterative_deepening
+assets/crown.png       king sprite
+```
